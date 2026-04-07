@@ -1,17 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="system">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Offline</title>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #3b82f6;
-            --accent-hover: #60a5fa;
+            /* Light Mode - Icy White Base */
+            --bg-color-light: #f8fafc;
+            --card-bg-light: rgba(255, 255, 255, 0.4);
+            --card-border-light: rgba(255, 255, 255, 0.6);
+            --card-shadow-light: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+            --text-main-light: #0f172a;
+            --text-muted-light: #475569;
+            --code-bg-light: rgba(241, 245, 249, 0.5);
+            --code-border-light: rgba(255, 255, 255, 0.5);
+            --accent-light: #0ea5e9;
+            --orb-1-light: #bae6fd;
+            --orb-2-light: #e0f2fe;
+
+            /* Dark Mode - Galaxy Black Base */
+            --bg-color-dark: #020617;
+            --card-bg-dark: rgba(15, 23, 42, 0.45);
+            --card-border-dark: rgba(255, 255, 255, 0.08);
+            --card-shadow-dark: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            --text-main-dark: #f8fafc;
+            --text-muted-dark: #94a3b8;
+            --code-bg-dark: rgba(2, 6, 23, 0.6);
+            --code-border-dark: rgba(255, 255, 255, 0.05);
+            --accent-dark: #38bdf8;
+            --orb-1-dark: #0f172a;
+            --orb-2-dark: #1e1b4b;
+        }
+
+        /* Responsive System Theme Implementation */
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-color: var(--bg-color-light);
+                --card-bg: var(--card-bg-light);
+                --card-border: var(--card-border-light);
+                --card-shadow: var(--card-shadow-light);
+                --text-main: var(--text-main-light);
+                --text-muted: var(--text-muted-light);
+                --code-bg: var(--code-bg-light);
+                --code-border: var(--code-border-light);
+                --accent: var(--accent-light);
+                --orb-1: var(--orb-1-light);
+                --orb-2: var(--orb-2-light);
+                --code-keyword: #8b5cf6;
+                --code-func: #0284c7;
+                --code-str: #16a34a;
+                --btn-text: #ffffff;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: var(--bg-color-dark);
+                --card-bg: var(--card-bg-dark);
+                --card-border: var(--card-border-dark);
+                --card-shadow: var(--card-shadow-dark);
+                --text-main: var(--text-main-dark);
+                --text-muted: var(--text-muted-dark);
+                --code-bg: var(--code-bg-dark);
+                --code-border: var(--code-border-dark);
+                --accent: var(--accent-dark);
+                --orb-1: var(--orb-1-dark);
+                --orb-2: var(--orb-2-dark);
+                --code-keyword: #c678dd;
+                --code-func: #61afef;
+                --code-str: #98c379;
+                --btn-text: #0f172a;
+            }
         }
 
         body, html {
@@ -25,69 +85,110 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        /* Subtle animated background gradient */
-        .bg-glow {
+        /* Aesthetic Ambient Orbs */
+        .orb {
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(15,23,42,0) 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            filter: blur(80px);
             z-index: 0;
-            animation: pulse 8s ease-in-out infinite alternate;
+            animation: float 20s infinite ease-in-out alternate;
+            transition: background 0.5s ease;
         }
 
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        .orb-1 {
+            width: 40vw;
+            height: 40vw;
+            top: -10vw;
+            left: -10vw;
+            background: var(--orb-1);
         }
 
+        .orb-2 {
+            width: 30vw;
+            height: 30vw;
+            bottom: -5vw;
+            right: -5vw;
+            background: var(--orb-2);
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5vw, 5vw) scale(1.1); }
+        }
+
+        /* Glassmorphism Container */
         .container {
             position: relative;
             z-index: 1;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 3rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3.5rem 3rem;
             max-width: 480px;
+            width: 90%;
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--card-shadow);
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        /* Subtle Inner Glow */
+        .container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .icon-container {
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             margin: 0 auto 1.5rem;
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 50%;
+            background: rgba(128, 128, 128, 0.05);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            box-shadow: inset 0 4px 6px rgba(128, 128, 128, 0.05);
             position: relative;
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease, background 0.5s ease, border-color 0.5s ease;
         }
 
-        /* Ping animation for the offline indicator */
+        .container:hover .icon-container {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        /* Refined Ping Animation */
         .status-dot {
             position: absolute;
-            bottom: 4px;
-            right: 4px;
-            width: 12px;
-            height: 12px;
-            background-color: #ef4444; /* Red for offline */
+            bottom: -4px;
+            right: -4px;
+            width: 14px;
+            height: 14px;
+            background-color: #ef4444;
             border-radius: 50%;
-            border: 2px solid var(--card-bg);
+            border: 3px solid var(--bg-color);
+            transition: border-color 0.5s ease;
         }
 
         .status-dot::after {
@@ -99,7 +200,7 @@
             border-radius: 50%;
             top: 0;
             left: 0;
-            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            animation: ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
             z-index: -1;
         }
 
@@ -108,88 +209,108 @@
         }
 
         svg {
-            width: 40px;
-            height: 40px;
-            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            color: var(--text-main);
+            opacity: 0.8;
+            transition: color 0.5s ease;
         }
 
         h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 0 0 1rem;
-            letter-spacing: -0.025em;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0 0 0.75rem;
+            letter-spacing: -0.03em;
         }
 
         p {
             color: var(--text-muted);
             line-height: 1.6;
             margin: 0 0 2rem;
-            font-size: 1.05rem;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: color 0.5s ease;
         }
 
+        /* Glass Code Block */
         .code-snippet {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 12px;
             padding: 1.25rem;
-            font-family: 'Fira Code', Consolas, Monaco, 'Courier New', Courier, monospace;
-            font-size: 0.875rem;
-            color: #e2e8f0;
-            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, monospace;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            margin-bottom: 2.5rem;
             text-align: left;
             overflow-x: auto;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            transition: background 0.5s ease, border-color 0.5s ease, color 0.5s ease;
         }
 
-        .code-snippet span.keyword { color: #c678dd; } /* Purple */
-        .code-snippet span.function { color: #61afef; } /* Blue */
-        .code-snippet span.string { color: #98c379; } /* Green */
-        .code-snippet span.comment { color: #7f848e; font-style: italic; } /* Grey */
-        .code-snippet span.property { color: #e06c75; } /* Red */
+        /* Mac-style Window Dots */
+        .code-snippet::before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 16px 0 0 #ffbd2e, 32px 0 0 #27c93f;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .code-snippet span.keyword { color: var(--code-keyword); transition: color 0.5s ease; }
+        .code-snippet span.function { color: var(--code-func); transition: color 0.5s ease; }
+        .code-snippet span.string { color: var(--code-str); transition: color 0.5s ease; }
+        .code-snippet span.property { color: var(--text-main); opacity: 0.9; transition: color 0.5s ease; }
 
         .btn {
             display: inline-block;
             background: var(--accent);
-            color: white;
+            color: var(--btn-text);
             text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
+            padding: 0.8rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.5s ease, color 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            filter: brightness(1.1);
         }
     </style>
-    <!-- Import Inter font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="bg-glow"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     
     <div class="container">
         <div class="icon-container">
-            <!-- Cloud Off Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M10.44 10.44A5.002 5.002 0 0012 20h5.5c.344 0 .678-.035 1-.102m-2.185-5.91A3.5 3.5 0 0015 7.5h-.114a7.001 7.001 0 00-13.43 3.321 3.5 3.5 0 002.502 4.417" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v12m0 0l-3-3m3 3l3-3" />
             </svg>
             <div class="status-dot"></div>
         </div>
 
-        <h1>503: Service Unavailable</h1>
+        <h1>Project Offline</h1>
         
-        <p>The project has been temporarily taken down due to a cloud hosting issue.</p>
+        <p>The project has been taken down due to cloud hosting issues.</p>
 
         <div class="code-snippet">
-<span class="comment">// Connection status check</span>
-<span class="keyword">const</span> <span class="property">project</span> = <span class="keyword">await</span> <span class="function">getServerStatus</span>();
-
-<span class="keyword">if</span> (!<span class="property">project</span>.<span class="property">isOnline</span>) {
-  <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">"Cloud hosting unavailable"</span>);
+<span class="keyword">async function</span> <span class="function">fetchProjectData</span>() {
+  <span class="keyword">const</span> <span class="property">res</span> = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'/api/project'</span>);
+  <span class="keyword">if</span> (!<span class="property">res</span>.ok) {
+    <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">'Cloud hosting offline'</span>);
+  }
 }
         </div>
 
