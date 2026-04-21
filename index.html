@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Offline</title>
+    <meta http-equiv="refresh" content="3;url=https://kushal1822.github.io/graphrag-policy-auditor/" />
+    <title>Project Relocated</title>
     <style>
         :root {
             /* Light Mode - Icy White Base */
@@ -185,7 +186,7 @@
             right: -4px;
             width: 14px;
             height: 14px;
-            background-color: #ef4444;
+            background-color: #10b981;
             border-radius: 50%;
             border: 3px solid var(--bg-color);
             transition: border-color 0.5s ease;
@@ -196,7 +197,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: #ef4444;
+            background-color: #10b981;
             border-radius: 50%;
             top: 0;
             left: 0;
@@ -295,26 +296,25 @@
     <div class="container">
         <div class="icon-container">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v12m0 0l-3-3m3 3l3-3" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
             </svg>
             <div class="status-dot"></div>
         </div>
 
-        <h1>Project Offline</h1>
+        <h1>Project Relocated</h1>
         
-        <p>The project has been moved to a local environment due to cloud issues.</p>
+        <p>This project has been moved to a new repository. Redirecting automatically...</p>
 
         <div class="code-snippet">
-<span class="keyword">async function</span> <span class="function">fetchProjectData</span>() {
-  <span class="keyword">const</span> <span class="property">res</span> = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'/api/project'</span>);
-  <span class="keyword">if</span> (!<span class="property">res</span>.ok) {
-    <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">'Cloud hosting offline'</span>);
-  }
+<span class="keyword">function</span> <span class="function">redirect</span>() {
+  <span class="keyword">const</span> <span class="property">newUrl</span> = <span class="string">'https://kushal1822.github.io/graphrag-policy-auditor/'</span>;
+  <span class="property">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="property">newUrl</span>;
 }
+
+<span class="function">setTimeout</span>(<span class="property">redirect</span>, <span class="property">3000</span>);
         </div>
 
-        <a href="javascript:history.back()" class="btn">Return to Resume</a>
+        <a href="https://kushal1822.github.io/graphrag-policy-auditor/" class="btn">Go to New Home</a>
     </div>
 </body>
 </html>
